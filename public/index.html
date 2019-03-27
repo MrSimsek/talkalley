@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TalkAlley - Have a nice conversation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/preflight.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/utilities.min.css" rel="stylesheet">
+</head>
+<body class="p-5">
+    <ul id="messages" class="list-reset max-w-sm mx-auto"></ul>
+    <p id="status" class="p-3 text-center"></p>
+    <form class="flex flex-col max-w-sm mx-auto p-3">
+      <input id="user" autocomplete="off" placeholder="Nickname" class="border rounded-full p-2 pl-4 focus:outline-none focus:shadow-outline" />
+      <div class="flex mt-2">
+        <input id="message" autocomplete="off" placeholder="Message" class="border rounded-full p-2 pl-4 mr-2 w-2/3 focus:outline-none focus:shadow-outline" />
+        <button type="submit" class="bg-blue text-white rounded-full w-1/3 focus:outline-none focus:shadow-outline">Send</button>
+      </div>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
