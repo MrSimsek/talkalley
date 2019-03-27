@@ -1,7 +1,7 @@
 # talkalley
 A Real-time chat application built with Socket.io and NodeJS
 
-Improvement suggestions from the official guide:
+## Improvement suggestions from the official guide:
 
 - [x] Broadcast a message to connected users when someone connects or disconnects.
 - [ ] Add support for nicknames.
