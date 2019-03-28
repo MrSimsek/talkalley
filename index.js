@@ -16,6 +16,8 @@ io.on('connect', function(socket) {
     socket.on('disconnect', function() {
         if(people[socket.id]) {
             io.emit('disconnect', people[socket.id].nickname + ' disconnected.');
+            delete people[socket.id];
+            io.emit('update-people', people);
         }
     });
     // when 'chat message' event recieved
@@ -34,6 +36,7 @@ io.on('connect', function(socket) {
         };
         socket.emit('greeting', 'Welcome to the chat!');
         socket.broadcast.emit('greeting', userData.nickname + ' is connected!');
+        io.emit('update-people', people);
     });
     socket.on('typing', function(msg) {
         socket.broadcast.emit('typing', msg);

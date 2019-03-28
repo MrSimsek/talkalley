@@ -9,7 +9,6 @@ $(function () {
     $('#login-form').submit(function(event) {
         var nickname = $('#nickname').val();
         var nicknameColor = getRandomColor();
-        console.log()
         if(nickname !== "") {
             window.nickname = nickname;
             window.nicknameColor = nicknameColor;
@@ -93,6 +92,17 @@ $(function () {
         li.classList.add('m-3', 'p-2', 'text-red', 'text-center');
         li.appendChild(text);
         $('#messages').append(li);
+    });
+    socket.on('update-people', function(people) {
+        $('#people-online').html('');
+        for(var index = 0; index < Object.values(people).length; index++) {
+            var li = document.createElement('li');
+            var text = document.createTextNode(Object.values(people)[index].nickname);
+            li.classList.add('m-3', 'p-2', 'inline-block', 'font-bold', 'text-white', 'rounded-full');
+            li.style.backgroundColor = Object.values(people)[index].nicknameColor;
+            li.appendChild(text);
+            $('#people-online').append(li);
+        }
     });
 
     function getRandomColor() {
