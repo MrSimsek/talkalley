@@ -8,9 +8,15 @@ $(function () {
 
     $('#login-form').submit(function(event) {
         var nickname = $('#nickname').val();
+        var nicknameColor = getRandomColor();
+        console.log()
         if(nickname !== "") {
             window.nickname = nickname;
-            socket.emit('set-nickname', nickname);
+            window.nicknameColor = nicknameColor;
+            socket.emit('set-nickname', {
+                nickname: nickname,
+                nicknameColor: nicknameColor
+            });
             $('#login').detach();
             $('#chat').show();
             $('#message').focus();
@@ -29,6 +35,7 @@ $(function () {
         userSpan.classList.add('text-blue', 'font-bold');
         var userText = document.createTextNode(window.nickname + ': ');
         userSpan.appendChild(userText);
+        userSpan.style.color = window.nicknameColor;
 
         var messageSpan = document.createElement('span');
         var messageText = document.createTextNode($('#message').val());
@@ -67,6 +74,7 @@ $(function () {
         userSpan.classList.add('text-blue', 'font-bold');
         var userText = document.createTextNode(data.user + ': ');
         userSpan.appendChild(userText);
+        userSpan.style.color = data.userColor;
 
         var messageSpan = document.createElement('span');
         var messageText = document.createTextNode(data.message);
@@ -86,4 +94,13 @@ $(function () {
         li.appendChild(text);
         $('#messages').append(li);
     });
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 });

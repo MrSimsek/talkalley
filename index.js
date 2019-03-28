@@ -15,21 +15,25 @@ app.get('/', function(req, res){
 io.on('connect', function(socket) {
     socket.on('disconnect', function() {
         if(people[socket.id]) {
-            io.emit('disconnect', people[socket.id] + ' disconnected.');
+            io.emit('disconnect', people[socket.id].nickname + ' disconnected.');
         }
     });
     // when 'chat message' event recieved
     socket.on('chat message', function(data) {
         // send data to all clients except sender
         socket.broadcast.emit('chat message', {
-            user: people[socket.id],
+            user: people[socket.id].nickname,
+            userColor: people[socket.id].nicknameColor,
             message: data
         });
     });
-    socket.on('set-nickname', function(nickname) {
-        people[socket.id] = nickname;
+    socket.on('set-nickname', function(userData) {
+        people[socket.id] = {
+            nickname: userData.nickname,
+            nicknameColor: userData.nicknameColor
+        };
         socket.emit('greeting', 'Welcome to the chat!');
-        socket.broadcast.emit('greeting', nickname + ' is connected!');
+        socket.broadcast.emit('greeting', userData.nickname + ' is connected!');
     });
     socket.on('typing', function(msg) {
         socket.broadcast.emit('typing', msg);
