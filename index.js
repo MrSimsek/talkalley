@@ -3,6 +3,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var people = {};
+
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
@@ -10,18 +12,27 @@ app.get('/', function(req, res){
 });
 
 // SocketIO
-io.on('connection', function(socket){
-    socket.on('disconnect', function(){
-        io.emit('disconnect', 'A user disconnected.');
+io.on('connect', function(socket) {
+    socket.on('disconnect', function() {
+        if(people[socket.id]) {
+            io.emit('disconnect', people[socket.id] + ' disconnected.');
+        }
     });
-    socket.on('chat message', function(data){
-        io.emit('chat message', data);
+    // when 'chat message' event recieved
+    socket.on('chat message', function(data) {
+        // send data to all clients except sender
+        socket.broadcast.emit('chat message', {
+            user: people[socket.id],
+            message: data
+        });
     });
-    socket.on('greeting', function(msg){
-        io.emit('greeting', msg);
+    socket.on('set-nickname', function(nickname) {
+        people[socket.id] = nickname;
+        socket.emit('greeting', 'Welcome to the chat!');
+        socket.broadcast.emit('greeting', nickname + ' is connected!');
     });
-    socket.on('typing', function(msg){
-        io.emit('typing', msg);
+    socket.on('typing', function(msg) {
+        socket.broadcast.emit('typing', msg);
     });
 });
 
