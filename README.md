@@ -13,5 +13,5 @@ A Real-time chat application built with Socket.io and NodeJS
 ## Personal Improvements
 
 - [ ] Add emoji support.
-- [ ] Give different colors to users in chat.
+- [x] Give different colors to users in chat.
 - [ ] Prevent adding user with same username.
