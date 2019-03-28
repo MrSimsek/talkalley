@@ -10,4 +10,4 @@ A Real-time chat application built with Socket.io and NodeJS
 - [ ] Show who’s online.
 - [ ] Add private messaging.
 - [ ] Add emoji support.
-- [ ] Give different colors to users.
+- [ ] Give different colors to users in chat.
