@@ -1,4 +1,4 @@
-# talkalley
+# Talk Alley
 A Real-time chat application built with Socket.io and NodeJS
 
 ## Improvement suggestions from the official guide:
