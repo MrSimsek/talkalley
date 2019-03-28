@@ -9,3 +9,4 @@ A Real-time chat application built with Socket.io and NodeJS
 - [x] Add “{user} is typing” functionality.
 - [ ] Show who’s online.
 - [ ] Add private messaging.
+- [ ] Add emoji support.
